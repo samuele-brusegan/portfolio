@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="it" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#212529">
+    <title>Portfolio — Brusegan.it</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Font: Bitter (same as brusegan.it) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="portfolio.css">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="/assets/brusegan/logoBrusegantNoText.svg" width="36" height="36" alt="Logo"
+                 onerror="this.style.display='none'">
+            <span style="font-weight:700">Brusegan.it</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navContent" aria-controls="navContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Portfolio</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <div class="heading">Portfolio</div>
+        <p class="subtitle">
+            Una raccolta dei miei progetti: dalle applicazioni web full-stack agli strumenti didattici
+            per la matematica, passando per app desktop multipiattaforma e piattaforme educative.
+        </p>
+    </div>
+</section>
+
+<!-- Filter bar -->
+<div class="container">
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Tutti</button>
+        <button class="filter-btn" data-filter="webapp">Web App</button>
+        <button class="filter-btn" data-filter="desktop">Desktop</button>
+        <button class="filter-btn" data-filter="didattica">Didattica</button>
+        <button class="filter-btn" data-filter="math">Matematica</button>
+        <button class="filter-btn" data-filter="game">Giochi</button>
+    </div>
+</div>
+
+<!-- Projects -->
+<div class="container" style="padding-bottom: 40px;">
+
+    <!-- ==================== WEB APP ==================== -->
+    <div class="mb-4">
+        <h2 class="section-title">Applicazioni Web &amp; Software</h2>
+        <p class="section-desc">Progetti full-stack, app desktop e piattaforme complesse.</p>
+    </div>
+
+    <div class="row g-4 mb-5" id="projectGrid">
+
+        <!-- ACTV Live -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="webapp">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>ACTV Live</h3>
+                    <a href="https://github.com/samuele-brusegan/actv-live" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        GitHub &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Portale web per il trasporto pubblico veneziano ACTV con tracciamento
+                    veicoli in tempo reale, pianificazione percorsi e orari GTFS.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">PHP 8.4</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">Leaflet.js</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">GTFS</span>
+                    <span class="tech-badge">PWA</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            ACTV Live nasce dalla necessit&agrave; di avere informazioni aggiornate e affidabili
+                            sul trasporto pubblico di Venezia. Il portale integra i dati GTFS statici
+                            (fermate, linee, orari) con le API in tempo reale di ACTV per mostrare
+                            la posizione dei mezzi sulla mappa, le previsioni di arrivo alle fermate
+                            e i percorsi ottimali con cambi.
+                        </p>
+                        <h4>Architettura</h4>
+                        <p>
+                            L'applicazione utilizza un'architettura PHP MVC custom senza framework:
+                            un router centralizzato smista le richieste ai controller, che a loro volta
+                            caricano i modelli e le viste. Il frontend &egrave; in JavaScript puro con
+                            Leaflet.js per le mappe interattive e Bootstrap 5 per l'interfaccia.
+                            I dati GTFS vengono parsati dal feed ZIP ufficiale e cachati come file JSON
+                            multi-livello per performance ottimali.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Day offset:</strong> gestione dei trip che attraversano la mezzanotte,
+                                con orari oltre le 24:00 nello standard GTFS</li>
+                            <li><strong>Real-time matching:</strong> sincronizzazione tra i blob delle API
+                                real-time e gli ID statici del database GTFS (processo "GTFS Identify")</li>
+                            <li><strong>Route Planner:</strong> algoritmo di calcolo percorsi con trasferimenti
+                                singoli basato esclusivamente sui file JSON cachati, senza query al database</li>
+                            <li><strong>PWA offline:</strong> Service Worker con strategia network-first e
+                                pre-cache selettivo dei dati GTFS</li>
+                            <li><strong>Timing points:</strong> logica di sincronizzazione per stimare
+                                la posizione dei veicoli tra un punto di timing e il successivo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Route Planner -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="webapp">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Route Planner</h3>
+                    <a href="https://github.com/samuele-brusegan/route-planner" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        GitHub &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Applicazione web per la pianificazione di percorsi escursionistici con
+                    mappe topografiche OSM, routing locale Valhalla e funzionalit&agrave; di export complete.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">OpenLayers</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Valhalla</span>
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">PWA</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Progettato per gli amanti dell'escursionismo, Route Planner permette di
+                            tracciare itinerari su mappe topografiche OpenStreetMap con calcolo automatico
+                            di distanze, dislivelli positivi e negativi, e tempi stimati. Ogni percorso
+                            pu&ograve; essere suddiviso automaticamente per giornata tramite i "punti notte".
+                        </p>
+                        <h4>Architettura</h4>
+                        <p>
+                            L'applicazione si compone di 4 container Docker: il frontend (Vanilla JS +
+                            OpenLayers + nginx), un proxy di routing Node.js verso Valhalla locale
+                            con fallback configurabili, il motore Valhalla con tile OSM montati da volume,
+                            e un export service (Node.js + Puppeteer) per la generazione di PDF e PNG.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Routing offline:</strong> download automatico di regioni Geofabrik
+                                con build dei tile Valhalla direttamente dall'interfaccia web</li>
+                            <li><strong>Export multi-formato:</strong> generazione GPX completo e split
+                                per giorni, PNG ad alta risoluzione e PDF con Puppeteer headless</li>
+                            <li><strong>Mappe offline:</strong> download e cache di tile raster in IndexedDB
+                                per uso senza connessione, con switch online/offline</li>
+                            <li><strong>Dati elevazione DEM:</strong> integrazione di dati altimetrici SRTM
+                                per il calcolo preciso dei dislivelli e il grafico altimetrico</li>
+                            <li><strong>Indicazioni turn-by-turn:</strong> istruzioni dettagliate con
+                                possibilit&agrave; di aggiungere note personalizzate ad ogni punto</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TotalCMD-MP -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="desktop">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>TotalCMD-MP</h3>
+                    <a href="https://github.com/samuele-brusegan/totalcmd-mp" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        GitHub &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    File manager dual-panel multipiattaforma ispirato a Total Commander.
+                    Costruito con Tauri v2, React e Rust per performance native.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">Tauri v2</span>
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">TypeScript</span>
+                    <span class="tech-badge">Rust</span>
+                    <span class="tech-badge">Tailwind</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Reimplementazione moderna del classico Total Commander come applicazione
+                            desktop multipiattaforma (Windows, macOS, Linux). L'obiettivo &egrave; offrire
+                            la stessa produttivit&agrave; del gestore file a doppio pannello con
+                            un'interfaccia aggiornata e supporto FTP/SFTP.
+                        </p>
+                        <h4>Architettura</h4>
+                        <p>
+                            Il backend Rust di Tauri v2 gestisce le operazioni su filesystem con
+                            performance native, mentre il frontend React/TypeScript con Zustand per
+                            lo state management offre un'interfaccia reattiva. Il design usa un tema
+                            dark ispirato a Catppuccin con pannelli ridimensionabili.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Navigazione da tastiera completa:</strong> riproduzione fedele
+                                delle scorciatoie di Total Commander (F3-F8, Space, Insert, Numpad *)</li>
+                            <li><strong>Dual-panel con tab:</strong> gestione dello stato indipendente
+                                per ogni pannello e ogni tab, con splitter ridimensionabile</li>
+                            <li><strong>Operazioni file cross-panel:</strong> Copy (F5), Move (F6),
+                                Delete (F8) tra pannelli con feedback visivo</li>
+                            <li><strong>Breadcrumb interattivi:</strong> click per navigare, doppio click
+                                per editare il percorso manualmente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cronometro -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="webapp">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Cronometro</h3>
+                    <a href="https://github.com/samuele-brusegan/cronometro" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        GitHub &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Cronometro fullscreen con interfaccia minimalista, precisione al centesimo
+                    di secondo e design pensato per massima leggibilit&agrave;.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">TypeScript</span>
+                    <span class="tech-badge">Vite</span>
+                    <span class="tech-badge">Tailwind</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Applicazione cronometro a schermo intero pensata per essere chiara e
+                            leggibile anche a distanza. Il design scuro con font industriali ricorda
+                            i cronometri sportivi professionali.
+                        </p>
+                        <h4>Dettagli Tecnici</h4>
+                        <p>
+                            Utilizza <code>requestAnimationFrame</code> per aggiornamenti fluidi a 60fps
+                            con precisione al centesimo tramite <code>performance.now()</code>.
+                            L'interfaccia si adatta automaticamente alla dimensione dello schermo
+                            grazie a <code>clamp()</code> CSS. Font custom: League Gothic per il timer
+                            principale, Koulen per i pulsanti, Mitr per le label.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Precisione temporale:</strong> uso di <code>performance.now()</code>
+                                invece di <code>setInterval</code> per evitare drift nel conteggio</li>
+                            <li><strong>Layout responsivo:</strong> tipografia fluida che scala da mobile
+                                a monitor di grandi dimensioni mantenendo proporzioni perfette</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Z-Tutorial -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="didattica">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Z-Tutorial</h3>
+                    <a href="https://github.com/samuele-brusegan/z-tutorial" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        GitHub &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Hub di tutorial interattive per studenti della classe 4IB
+                    dell'ITIS C. Zuccante di Mestre: JavaScript, reti, algoritmi e altro.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Nginx</span>
+                    <span class="tech-badge">HTML/CSS/JS</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Piattaforma educativa creata per gli studenti dell'ITIS Zuccante.
+                            Offre tutorial interattivi su molteplici argomenti del curriculum
+                            informatico, con un'interfaccia moderna e dark theme ottimizzata
+                            per la leggibilit&agrave; del codice.
+                        </p>
+                        <h4>Contenuti</h4>
+                        <ul>
+                            <li><strong>JavaScript:</strong> import script, eventi, DOM, Promise,
+                                Fetch API e quiz finale (6 pagine)</li>
+                            <li><strong>Cisco Packet Tracer:</strong> topologia, switch, router
+                                e configurazioni di rete (4 pagine)</li>
+                            <li><strong>JavaFX con Maven:</strong> setup IDE, struttura Maven,
+                                run/debug e packaging (7 pagine)</li>
+                            <li><strong>Grafi e Algoritmi:</strong> BFS, DFS, Dijkstra, Bellman-Ford,
+                                Prim, Kruskal con animazioni interattive</li>
+                            <li><strong>Analisi Matematica:</strong> teoremi di Rolle, Lagrange,
+                                De L'H&ocirc;pital, flessi e problemi di max/min</li>
+                        </ul>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Interattivit&agrave;:</strong> animazioni step-by-step per
+                                gli algoritmi sui grafi con tabelle di traccia in tempo reale</li>
+                            <li><strong>Router PHP custom:</strong> architettura ispirata ad actv-live,
+                                containerizzata con Docker Compose (Nginx + PHP-FPM)</li>
+                            <li><strong>Design tipografico:</strong> combinazione di Space Mono (heading),
+                                JetBrains Mono (codice) e DM Sans (corpo) per leggibilit&agrave; ottimale</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==================== STRUMENTI BRUSEGAN.IT ==================== -->
+    <div class="mb-4 mt-3">
+        <h2 class="section-title">Strumenti Didattici &mdash; Brusegan.it</h2>
+        <p class="section-desc">
+            Tool educativi per la matematica e l'informatica, ospitati su
+            <a href="https://brusegan.it" target="_blank" style="color:var(--accent);text-decoration:none">brusegan.it</a>.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <!-- Scomposizione Polinomiale -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Scomp. Polinomiale</h3>
+                    <a href="https://brusegan.it/samuele/scompol/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Strumento per la scomposizione di polinomi con procedura guidata
+                    step-by-step e visualizzazione dei passaggi intermedi.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">HTML/CSS</span>
+                    <span class="tech-badge">Algebra</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Applicazione web pensata per studenti delle superiori che devono imparare
+                            le tecniche di scomposizione dei polinomi. L'utente inserisce un polinomio e
+                            lo strumento lo guida attraverso i vari metodi di fattorizzazione
+                            (raccoglimento, prodotti notevoli, Ruffini, ecc.), mostrando ogni passaggio
+                            intermedio per favorire la comprensione.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Parsing polinomi:</strong> interpretazione dell'input testuale
+                                in una struttura dati manipolabile</li>
+                            <li><strong>Algoritmi multipli:</strong> riconoscimento automatico del
+                                metodo di scomposizione pi&ugrave; appropriato</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PescaNumeri -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="game">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>PescaNumeri</h3>
+                    <a href="https://brusegan.it/samuele/pescaNumeri/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Gioco interattivo di aritmetica dove si "pescano" numeri
+                    per raggiungere obiettivi matematici. Pensato per rendere
+                    divertente l'esercizio con i numeri.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">Game</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            PescaNumeri trasforma l'aritmetica in un gioco: i giocatori devono
+                            selezionare ("pescare") numeri da un insieme per comporre operazioni che
+                            raggiungano un risultato target. L'approccio ludico incentiva la pratica
+                            del calcolo mentale in modo naturale e coinvolgente.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Generazione problemi:</strong> algoritmo che garantisce
+                                la risolvibilit&agrave; di ogni challenge proposta</li>
+                            <li><strong>Bilanciamento difficolt&agrave;:</strong> calibrazione dei
+                                parametri per offrire sfide adeguate a diversi livelli</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TabellOTTO -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="game">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>TabellOTTO</h3>
+                    <a href="https://brusegan.it/samuele/tabellotto.php" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Quiz interattivo sulle tabelline con meccaniche di gioco per rendere
+                    divertente la memorizzazione delle moltiplicazioni.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Game</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Ispirato al gioco del "tombolo" (lotto), TabellOTTO presenta le tabelline
+                            in formato quiz con feedback immediato. L'obiettivo &egrave; rendere la
+                            ripetizione delle moltiplicazioni un'attivit&agrave; piacevole piuttosto
+                            che un esercizio meccanico.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MCD -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>MCD</h3>
+                    <a href="https://brusegan.it/samuele/mcd/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Calcolatore del Massimo Comun Divisore con visualizzazione
+                    passo-passo dell'algoritmo di Euclide.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Algoritmi</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Strumento didattico che non si limita a calcolare il MCD, ma mostra
+                            ogni passo dell'algoritmo di Euclide. L'utente pu&ograve; seguire le
+                            divisioni successive e comprendere perch&eacute; il metodo funziona,
+                            costruendo una comprensione profonda invece della semplice memorizzazione.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MCM -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>MCM</h3>
+                    <a href="https://brusegan.it/samuele/mcm/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Calcolatore del Minimo Comune Multiplo con scomposizione
+                    in fattori primi e spiegazione visuale del procedimento.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Algoritmi</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Complemento naturale del calcolatore MCD, questo strumento calcola
+                            il Minimo Comune Multiplo mostrando la scomposizione in fattori primi
+                            e la selezione dei fattori con esponente massimo. Utile per capire
+                            la relazione tra MCD e MCM.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 16bit -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="didattica">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>16bit</h3>
+                    <a href="https://brusegan.it/16bit/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Convertitore e visualizzatore di numeri in formato binario a 16 bit.
+                    Strumento pensato per lo studio delle basi di informatica.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Informatica</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Strumento interattivo per esplorare la rappresentazione binaria dei numeri.
+                            Permette la conversione tra decimale, binario ed esadecimale con
+                            visualizzazione bit-per-bit. Utile per le lezioni di architettura dei
+                            calcolatori e sistemi di numerazione.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fibonacci -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Fibonacci</h3>
+                    <a href="https://brusegan.it/samuele/wip/def/fibbo.php" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Generatore e visualizzatore della sequenza di Fibonacci con
+                    esplorazione delle propriet&agrave; matematiche della serie.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Matematica</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Visualizzatore interattivo della sequenza di Fibonacci che va oltre
+                            il semplice elenco di numeri: mostra la spirale aurea, il rapporto
+                            tra termini consecutivi che converge a &phi; (1.618...) e le connessioni
+                            con la natura e l'arte. Uno strumento per apprezzare la bellezza
+                            matematica di questa sequenza universale.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tartaglia -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Tartaglia</h3>
+                    <a href="https://brusegan.it/samuele/wip/def/tartav2.php" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Generatore interattivo del triangolo di Pascal/Tartaglia con
+                    evidenziazione delle propriet&agrave; combinatorie.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Matematica</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Visualizzazione interattiva del triangolo di Tartaglia (Pascal) che permette
+                            di esplorare le sue numerose propriet&agrave;: coefficienti binomiali,
+                            numeri di Fibonacci nascosti nelle diagonali, potenze di 2 nelle somme
+                            delle righe e pattern di parit&agrave;. Lo strumento genera il triangolo
+                            fino alla riga desiderata con evidenziazione colorata.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Numeri Primi -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Numeri Primi</h3>
+                    <a href="https://brusegan.it/samuele/num_primi/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Strumento per la ricerca, verifica e visualizzazione dei numeri primi
+                    con implementazione del crivello di Eratostene.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Algoritmi</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Tool completo sui numeri primi: verifica di primalit&agrave;, generazione
+                            di primi fino a un limite, scomposizione in fattori primi e visualizzazione
+                            animata del crivello di Eratostene. Mostra concretamente come l'algoritmo
+                            "cancella" i multipli, rendendo tangibile un concetto astratto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MorseApp Online -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="didattica">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>MorseApp Online</h3>
+                    <a href="https://brusegan.it/morseAppOnline/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Traduttore codice Morse bidirezionale con riproduzione audio
+                    dei segnali (punti e linee).
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Web Audio</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Applicazione web che traduce testo in codice Morse e viceversa, con
+                            la possibilit&agrave; di ascoltare la riproduzione audio dei segnali.
+                            Progetto nato come esercizio di web audio API e successivamente
+                            espanso con la versione scaricabile per uso offline.
+                        </p>
+                        <h4>Storia</h4>
+                        <p>
+                            Uno dei primi progetti pubblicati su brusegan.it, iniziato come
+                            semplice esercizio e poi evoluto in due versioni: la web app online
+                            e un'app scaricabile (MorseApp Download) per dispositivi mobile.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tavola Pitagorica -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="math">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Tavola Pitagorica</h3>
+                    <a href="https://brusegan.it/samuele/tavp/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Generatore interattivo della tavola pitagorica con
+                    evidenziazione di righe, colonne e pattern numerici.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">HTML/CSS</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Tavola pitagorica interattiva dove l'utente pu&ograve; evidenziare
+                            righe e colonne per visualizzare i prodotti. Utile come strumento
+                            di consultazione rapida e come supporto didattico per le moltiplicazioni.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indonum -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="game">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Indonum</h3>
+                    <a href="https://brusegan.it/samuele/indonum/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Gioco "indovina il numero" con sistema di feedback per guidare
+                    il giocatore verso la soluzione usando la ricerca binaria.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Game</span>
+                    <span class="tech-badge">Logica</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Classico gioco di "indovina il numero" in cui il computer sceglie un
+                            numero e il giocatore deve indovinarlo ricevendo feedback "troppo alto"
+                            o "troppo basso". Oltre ad essere divertente, insegna implicitamente
+                            il concetto di ricerca binaria e la strategia ottimale di dimezzamento
+                            dell'intervallo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tris -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="game">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Tris</h3>
+                    <a href="https://brusegan.it/samuele/tris" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Gioco del tris (tic-tac-toe) con modalit&agrave; giocatore vs giocatore
+                    e giocatore vs computer.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Game</span>
+                    <span class="tech-badge">AI</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Implementazione del classico gioco del tris con interfaccia web.
+                            Include sia la modalit&agrave; PvP (due giocatori) che PvE (contro il
+                            computer). L'intelligenza artificiale valuta le mosse possibili
+                            per offrire una sfida bilanciata.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mine Sweeper -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="game">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>Mine Sweeper</h3>
+                    <a href="https://brusegan.it/samuele/mineSweeper" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Campo minato classico con griglia personalizzabile,
+                    contatore mine e timer integrato.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Game</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Reimplementazione web del classico Campo Minato (Minesweeper).
+                            L'utente pu&ograve; scegliere la dimensione della griglia e il numero
+                            di mine. Include la logica di rivelazione ricorsiva (flood fill) per
+                            le caselle vuote adiacenti e il sistema di bandierine per marcare
+                            le mine sospette.
+                        </p>
+                        <h4>Sfide Implementative</h4>
+                        <ul>
+                            <li><strong>Flood fill ricorsivo:</strong> algoritmo di espansione
+                                delle caselle vuote senza mine adiacenti</li>
+                            <li><strong>Prima mossa sicura:</strong> generazione delle mine solo
+                                dopo il primo click per garantire una partenza senza esplosione</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MorseApp Download -->
+        <div class="col-12 col-md-6 col-lg-4 project-item" data-category="didattica">
+            <div class="project-card" onclick="toggleDetail(this)">
+                <div class="card-header-row">
+                    <h3>MorseApp Download</h3>
+                    <a href="https://brusegan.it/samuele_dir/apk/morseApp/" target="_blank"
+                       class="project-link" onclick="event.stopPropagation()">
+                        Apri &nearr;
+                    </a>
+                </div>
+                <p class="abstract">
+                    Versione scaricabile dell'applicazione Morse per uso offline
+                    su dispositivi mobile e desktop.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">APK</span>
+                    <span class="tech-badge">Mobile</span>
+                </div>
+                <button class="expand-toggle" onclick="event.stopPropagation(); toggleDetail(this.closest('.project-card'))">
+                    Dettagli <span class="chevron">&#9660;</span>
+                </button>
+                <div class="detail-panel">
+                    <div class="detail-content">
+                        <h4>Panoramica</h4>
+                        <p>
+                            Evoluzione della MorseApp Online in formato applicazione scaricabile.
+                            Pensata per l'uso offline, mantiene tutte le funzionalit&agrave; di
+                            traduzione e riproduzione audio del codice Morse senza necessit&agrave;
+                            di connessione internet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="portfolio-footer">
+    <div class="container">
+        <p>&copy; 2025 <a href="https://brusegan.it">Brusegan.it</a> &mdash; Tutti i diritti riservati</p>
+    </div>
+</footer>
+
+<script>
+function toggleDetail(card) {
+    const panel = card.querySelector('.detail-panel');
+    const btn = card.querySelector('.expand-toggle');
+    if (!panel) return;
+
+    const isOpen = panel.classList.contains('open');
+    panel.classList.toggle('open');
+    if (btn) btn.classList.toggle('open');
+}
+
+// Filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.project-item');
+
+    filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+
+            filterBtns.forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+
+            items.forEach(function(item) {
+                if (filter === 'all' || item.dataset.category === filter) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+
+</body>
+</html>
